@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
         if (Timer > TimerDiff)
         {
             Instantiate(enemy);
-            enemy.transform.position = new Vector3(Random.Range(-1.9f, 1.9f), 10f, 0) ;
+            enemy.transform.position = new Vector3(Random.Range(-1.9f, 1.9f), 10f, 0);
             Timer = 0;
         }
     }

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     public TMP_Text ScoreText;
     public TMP_Text PlayerHpText;
-    Player player;
+    public Player player;
     public int score;
 
 
@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
-        player = GetComponent<Player>();
     }
 
     public void Update()
