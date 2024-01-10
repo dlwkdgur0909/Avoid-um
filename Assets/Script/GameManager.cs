@@ -8,10 +8,15 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public TMP_Text ScoreText;
-    public TMP_Text PlayerHpText;
+    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text curscoreText;
+    [SerializeField] private TMP_Text maxScoreText;
+
+    public TMP_Text playerHpText;
+    public GameObject scorePanel;
     public Player player;
     public int score;
+    private int maxScore;
 
 
     void Awake()
@@ -22,17 +27,42 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        maxScore = PlayerPrefs.GetInt("score");
+    }
+
     public void Update()
     {
-        ScoreText.text = "Score:" + score.ToString();
+        Score();
+    }
+
+    private void Score()
+    {
+        //게임 진행 중 스코어
+        scoreText.text = "Score:" + score.ToString();
         if (player != null)
         {
-            PlayerHpText.text = "Life: " + player.Hp.ToString();
+            playerHpText.text = "Life: " + player.Hp.ToString();
         }
+
+        //게임 끝나고 판넬 스코어
+        curscoreText.text = "current score: " + score.ToString();
+        if (score > maxScore)
+        {
+            maxScore = score;
+            PlayerPrefs.SetInt("score", maxScore);
+        }
+        maxScoreText.text = "max score: " + maxScore.ToString();
     }
 
     public void ScorePlus()
     {
         score++;
+    }
+
+    public void Die()
+    {
+        scorePanel.SetActive(true);
     }
 }

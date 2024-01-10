@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     Rigidbody2D rigid;
     SpriteRenderer sprite;
     Vector3 inputVec;
+
 
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] float jumpPower = 1f;
@@ -28,6 +30,7 @@ public class Player : MonoBehaviour
     {
         Move();
         Jump();
+        Die();
     }
 
     public void Move()
@@ -70,5 +73,15 @@ public class Player : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         yield return sprite.material.color = Color.white;
+    }
+
+    public void Die()
+    {
+        if(Hp == 0)
+        {
+            Destroy(gameObject);
+            Time.timeScale = 0;
+            GameManager.Instance.Die();
+        }
     }
 }
